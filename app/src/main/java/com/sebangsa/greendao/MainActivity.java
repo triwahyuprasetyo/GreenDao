@@ -1,124 +1,48 @@
 package com.sebangsa.greendao;
 
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.sebangsa.greendao.db.Address;
-import com.sebangsa.greendao.db.AddressDao;
-import com.sebangsa.greendao.db.DaoMaster;
-import com.sebangsa.greendao.db.DaoSession;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import de.greenrobot.dao.query.QueryBuilder;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private AddressDao addressDao;
-    private Button buttonInsert;
-    private Button buttonRetrieve;
-    private Button buttonDelete;
-    private Button buttonUpdate;
+    private Button buttonAddress;
+    private Button buttonCustomer;
+    private Button buttonOrder;
+    private Button buttonItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initDb();
-
-        buttonInsert = (Button) findViewById(R.id.buttonInsert);
-        buttonInsert.setOnClickListener(this);
-        buttonRetrieve = (Button) findViewById(R.id.buttonRetrieve);
-        buttonRetrieve.setOnClickListener(this);
-        buttonDelete = (Button) findViewById(R.id.buttonDelete);
-        buttonDelete.setOnClickListener(this);
-        buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
-        buttonUpdate.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    public void initDb() {
-        DaoMaster.DevOpenHelper masterHelper = new DaoMaster.DevOpenHelper(this, "greendao.db", null); //create database db file if not exist
-        SQLiteDatabase db = masterHelper.getWritableDatabase();  //get the created database db file
-        DaoMaster master = new DaoMaster(db);//create masterDao
-        DaoSession daoSession = master.newSession(); //Creates Session session
-        addressDao = daoSession.getAddressDao();
-    }
-
-    private void insertAddress() {
-        List<String> addressList = new ArrayList<String>();
-        addressList.add("Dagen");
-        addressList.add("Suruh");
-        addressList.add("Tasikmadu");
-        addressList.add("Karanganyar");
-        addressList.add("Jawa Tengah");
-        addressList.add("Indonesia");
-
-        Address address;
-        for (String a : addressList) {
-            address = new Address();
-            address.setAddress(a);
-            addressDao.insert(address);
-            Log.d("DaoExample", "Inserted new note, ID: " + address.getId());
-        }
-    }
-
-    private List<Address> getAddressList() {
-        QueryBuilder qb = addressDao.queryBuilder();
-        List<Address> addressList = qb.list();
-        if (addressList.size() > 0) {
-            return addressList;
-        } else return new ArrayList<Address>();
+        buttonAddress = (Button) findViewById(R.id.buttonAddress);
+        buttonAddress.setOnClickListener(this);
+        buttonCustomer = (Button) findViewById(R.id.buttonCustomer);
+        buttonCustomer.setOnClickListener(this);
+        buttonOrder = (Button) findViewById(R.id.buttonOrder);
+        buttonOrder.setOnClickListener(this);
+        buttonItem = (Button) findViewById(R.id.buttonItem);
+        buttonItem.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        int size;
-        List<Address> addressList;
+        Intent i;
         switch (view.getId()) {
-            case R.id.buttonInsert:
-                insertAddress();
+            case R.id.buttonAddress:
+                i = new Intent(MainActivity.this, AddressActivity.class);
+                startActivity(i);
                 break;
-            case R.id.buttonRetrieve:
-                addressList = getAddressList();
-                if (addressList.size() > 0) {
-                    for (Address address : addressList) {
-                        Log.i("ADDRESS", address.getId() + " - " + address.getAddress());
-                    }
-                } else {
-                    Log.i("ADDRESS", "address list kosong");
-                }
+            case R.id.buttonCustomer:
+
                 break;
-            case R.id.buttonDelete:
-                addressList = getAddressList();
-                size = addressList.size();
-                if (size > 0) {
-                    addressDao.delete(addressList.get(size - 1));
-                    Log.i("ADDRESS", "delete address berhasil");
-                } else {
-                    Log.i("ADDRESS", "address list kosong");
-                }
+            case R.id.buttonOrder:
+
                 break;
-            case R.id.buttonUpdate:
-                addressList = getAddressList();
-                size = addressList.size();
-                if (size > 0) {
-                    Address a = addressList.get(size - 1);
-                    a.setAddress("Tokyo");
-                    addressDao.update(a);
-                    Log.i("ADDRESS", "update address berhasil");
-                } else {
-                    Log.i("ADDRESS", "address list kosong");
-                }
+            case R.id.buttonItem:
+
                 break;
         }
     }

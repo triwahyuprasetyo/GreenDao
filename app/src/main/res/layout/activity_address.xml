@@ -8,32 +8,32 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.sebangsa.greendao.MainActivity">
+    tools:context="com.sebangsa.greendao.AddressActivity">
 
 
     <Button
-        android:id="@+id/buttonAddress"
+        android:id="@+id/buttonInsert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Address" />
+        android:text="Insert" />
 
     <Button
-        android:id="@+id/buttonCustomer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Customer" />
-
-    <Button
-        android:id="@+id/buttonOrder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Order" />
-
-    <Button
-        android:id="@+id/buttonItem"
+        android:id="@+id/buttonRetrieve"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Item" />
+        android:text="Retrieve" />
+
+    <Button
+        android:id="@+id/buttonDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete" />
+
+    <Button
+        android:id="@+id/buttonUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Update" />
 </LinearLayout>
