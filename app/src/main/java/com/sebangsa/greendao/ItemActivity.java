@@ -84,60 +84,54 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         } else return new ArrayList<Item>();
     }
 
-    private List<Order> getOrderList() {
-        QueryBuilder qb = orderDao.queryBuilder();
-        List<Order> orderList = qb.list();
-        if (orderList.size() > 0) {
-            return orderList;
-        } else return new ArrayList<Order>();
+    private List<Item> getItemList() {
+        QueryBuilder qb = itemDao.queryBuilder();
+        List<Item> itemList = qb.list();
+        if (itemList.size() > 0) {
+            return itemList;
+        } else return new ArrayList<Item>();
     }
 
     @Override
     public void onClick(View view) {
         int size;
-        List<Order> orderList;
+        List<Item> itemList;
         switch (view.getId()) {
             case R.id.buttonInsertI:
                 insertItem();
                 break;
             case R.id.buttonRetrieveI:
-//                orderList = getOrderList();
-//                if (orderList.size() > 0) {
-//                    for (Order order : orderList) {
-//                        Log.i(LOG, order.getId() + " - amount " + order.getAmount() + " - date " + order.getOrderDate().toString() + " - Cust Id " + order.getCustomerId());
-//                    }
-//                } else {
-//                    Log.i(LOG, "order list kosong");
-//                }
+                itemList = getItemList();
+                if (itemList.size() > 0) {
+                    for (Item item : itemList) {
+                        Log.i(LOG, item.getId() + " - ItemName " + item.getItemName() + " - ItemDescription " + item.getItemDescription());
+                    }
+                } else {
+                    Log.i(LOG, "item list kosong");
+                }
                 break;
             case R.id.buttonDeleteI:
-//                orderList = getOrderList();
-//                size = orderList.size();
-//                if (size > 0) {
-//                    orderDao.delete(orderList.get(size - 1));
-//                    Log.i(LOG, "delete order berhasil");
-//                } else {
-//                    Log.i(LOG, "order list kosong");
-//                }
+                itemList = getItemList();
+                size = itemList.size();
+                if (size > 0) {
+                    itemDao.delete(itemList.get(size - 1));
+                    Log.i(LOG, "delete item berhasil");
+                } else {
+                    Log.i(LOG, "item list kosong");
+                }
                 break;
             case R.id.buttonUpdateI:
-//                orderList = getOrderList();
-//                size = orderList.size();
-//                if (size > 0) {
-//                    QueryBuilder qb = customerDao.queryBuilder();
-//                    List<Customer> customerList = qb.list();
-//                    if (customerList.size() > 0) {
-//                        Order o = orderList.get(size - 1);
-//                        o.setAmount(1000);
-//                        o.setCustomerId(customerList.get(customerList.size() - 1).getId());
-//                        orderDao.update(o);
-//                        Log.i(LOG, "update Order berhasil");
-//                    } else {
-//                        Log.i(LOG, "Customer list kosong, tidak bisa ganti Customer di order");
-//                    }
-//                } else {
-//                    Log.i(LOG, "Customer list kosong");
-//                }
+                itemList = getItemList();
+                size = itemList.size();
+                if (size > 0) {
+                    Item i = itemList.get(size - 1);
+                    i.setItemName("sepatu");
+                    i.setItemDescription("alas kaki");
+                    itemDao.update(i);
+                    Log.i(LOG, "update item berhasil");
+                } else {
+                    Log.i(LOG, "Customer item kosong");
+                }
                 break;
         }
     }
