@@ -110,26 +110,33 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.buttonDeleteC:
-//                addressList = getAddressList();
-//                size = addressList.size();
-//                if (size > 0) {
-//                    addressDao.delete(addressList.get(size - 1));
-//                    Log.i("ADDRESS", "delete address berhasil");
-//                } else {
-//                    Log.i("ADDRESS", "address list kosong");
-//                }
+                customerList = getCustomerList();
+                size = customerList.size();
+                if (size > 0) {
+                    customerDao.delete(customerList.get(size - 1));
+                    Log.i(LOG, "delete customer berhasil");
+                } else {
+                    Log.i(LOG, "customer list kosong");
+                }
                 break;
             case R.id.buttonUpdateC:
-//                addressList = getAddressList();
-//                size = addressList.size();
-//                if (size > 0) {
-//                    Address a = addressList.get(size - 1);
-//                    a.setAddress("Tokyo");
-//                    addressDao.update(a);
-//                    Log.i("ADDRESS", "update address berhasil");
-//                } else {
-//                    Log.i("ADDRESS", "address list kosong");
-//                }
+                customerList = getCustomerList();
+                size = customerList.size();
+                if (size > 0) {
+                    QueryBuilder qb = addressDao.queryBuilder();
+                    List<Address> addressList = qb.list();
+                    if (addressList.size() > 0) {
+                        Customer c = customerList.get(size - 1);
+                        c.setCustomerName("Valentino Rossi");
+                        c.setAddress(addressList.get(0));
+                        customerDao.update(c);
+                        Log.i(LOG, "update Customer berhasil");
+                    } else {
+                        Log.i(LOG, "Address list kosong, tidak bisa ganti address customer");
+                    }
+                } else {
+                    Log.i(LOG, "Customer list kosong");
+                }
                 break;
         }
     }
