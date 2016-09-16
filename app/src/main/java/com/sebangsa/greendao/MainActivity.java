@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.sebangsa.greendao.db.Customer;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonAddress;
@@ -36,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
             case R.id.buttonCustomer:
-
+                i = new Intent(MainActivity.this, CustomerActivity.class);
+                startActivity(i);
                 break;
             case R.id.buttonOrder:
 

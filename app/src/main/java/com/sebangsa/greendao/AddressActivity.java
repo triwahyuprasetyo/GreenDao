@@ -37,6 +37,7 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
         buttonDelete.setOnClickListener(this);
         buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
         buttonUpdate.setOnClickListener(this);
+        setTitle("GreenDao - Address");
     }
     public void initDb() {
         DaoMaster.DevOpenHelper masterHelper = new DaoMaster.DevOpenHelper(this, "greendao.db", null); //create database db file if not exist
