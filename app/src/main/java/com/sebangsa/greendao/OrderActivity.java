@@ -44,6 +44,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         buttonDelete.setOnClickListener(this);
         buttonUpdate = (Button) findViewById(R.id.buttonUpdateO);
         buttonUpdate.setOnClickListener(this);
+        setTitle("GreenDao - Order");
     }
 
     public void initDb() {
