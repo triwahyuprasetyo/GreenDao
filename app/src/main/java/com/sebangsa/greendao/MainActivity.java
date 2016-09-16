@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonRetrieve;
     private Button buttonDelete;
     private Button buttonUpdate;
+    private List<Address> addressList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonDelete.setOnClickListener(this);
         buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
         buttonUpdate.setOnClickListener(this);
+        addressList = new ArrayList<Address>();
     }
 
     @Override
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addressList.add("Jawa Tengah");
         addressList.add("Indonesia");
 
-//        List<Address> addresss = new ArrayList<Address>();
         Address address;
         for (String a : addressList) {
             address = new Address();
@@ -71,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             addressDao.insert(address);
             Log.d("DaoExample", "Inserted new note, ID: " + address.getId());
         }
-//        addressDao.insertInTx(addresss);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.buttonRetrieve:
                 QueryBuilder qb = addressDao.queryBuilder();
-                List<Address> addressList = qb.list();
+                addressList = qb.list();
                 for (Address address : addressList) {
                     Log.i("ADDRESS", address.getId() + " - " + address.getAddress());
                 }
@@ -91,7 +91,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.buttonUpdate:
-
+                int size = addressList.size();
+                if (size > 0) {
+                    Address a = addressList.get(size - 1);
+                    a.setAddress("Tokyo");
+                    addressDao.update(a);
+                    Log.i("ADDRESS", "update address berhasil");
+                } else {
+                    Log.i("ADDRESS", "address list kosong");
+                }
                 break;
         }
     }
