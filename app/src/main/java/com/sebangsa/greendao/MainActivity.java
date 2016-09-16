@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonRetrieve;
     private Button buttonDelete;
     private Button buttonUpdate;
-    private List<Address> addressList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonDelete.setOnClickListener(this);
         buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
         buttonUpdate.setOnClickListener(this);
-        addressList = new ArrayList<Address>();
     }
 
     @Override
@@ -74,24 +72,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private List<Address> getAddressList() {
+        QueryBuilder qb = addressDao.queryBuilder();
+        List<Address> addressList = qb.list();
+        if (addressList.size() > 0) {
+            return addressList;
+        } else return new ArrayList<Address>();
+    }
+
     @Override
     public void onClick(View view) {
+        int size;
+        List<Address> addressList;
         switch (view.getId()) {
             case R.id.buttonInsert:
                 insertAddress();
                 break;
             case R.id.buttonRetrieve:
-                QueryBuilder qb = addressDao.queryBuilder();
-                addressList = qb.list();
-                for (Address address : addressList) {
-                    Log.i("ADDRESS", address.getId() + " - " + address.getAddress());
+                addressList = getAddressList();
+                if (addressList.size() > 0) {
+                    for (Address address : addressList) {
+                        Log.i("ADDRESS", address.getId() + " - " + address.getAddress());
+                    }
+                } else {
+                    Log.i("ADDRESS", "address list kosong");
                 }
                 break;
             case R.id.buttonDelete:
-
+                addressList = getAddressList();
+                size = addressList.size();
+                if (size > 0) {
+                    addressDao.delete(addressList.get(size - 1));
+                    Log.i("ADDRESS", "delete address berhasil");
+                } else {
+                    Log.i("ADDRESS", "address list kosong");
+                }
                 break;
             case R.id.buttonUpdate:
-                int size = addressList.size();
+                addressList = getAddressList();
+                size = addressList.size();
                 if (size > 0) {
                     Address a = addressList.get(size - 1);
                     a.setAddress("Tokyo");
